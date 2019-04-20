@@ -1,0 +1,29 @@
+英文测试集
+链接：https://pan.baidu.com/s/1uHMPi8vygvAO_DZ3v4wf-g 密码：ss1y
+荷兰语测试集
+链接：https://pan.baidu.com/s/13fZltJEfrR8EBbDA8BfUCw 密码：z1nw
+训练集未处理合并
+链接：https://pan.baidu.com/s/1uiV7ISsE62vRaaiM3xqmqg 密码：yrrx
+训练集处理合并
+链接：https://pan.baidu.com/s/12r46jPSVWFXZ1TSDJyXHnw 密码：2oes
+用户需求，用于生成查询
+链接：https://pan.baidu.com/s/1ZX5pk8X-8KBmuy9og1tHOA 密码：17lh
+结果评估文件
+链接：https://pan.baidu.com/s/188WU2ZA_A-GsRYmsHVyqgA 密码：8m3d
+荷兰语测试集文档向量
+链接：https://pan.baidu.com/s/1gdZ3aNUsg7GTIfxuRtgs-g 
+提取码：d0ez 
+
+英文测试集文档向量
+链接：https://pan.baidu.com/s/1fve-o0_JkqCe3Yro4awXww 
+提取码：5624 
+训练词向量300维度
+链接：https://pan.baidu.com/s/1fxQ2XixE4ThoJZ_hW1qYUQ 
+提取码：jzxh 
+训练集未处理EN
+链接：https://pan.baidu.com/s/10BygsxahPNag844T45B-XA 
+提取码：aj8u 
+训练集未处理NL
+链接：https://pan.baidu.com/s/1dggyGtv2_Kh3FksIzf3V1w 
+提取码：h38e 
+

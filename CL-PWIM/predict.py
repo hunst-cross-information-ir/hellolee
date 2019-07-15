@@ -26,6 +26,7 @@ from train_set import Get_trainset as gs
 from data_process import process as ps
 import array
 import time
+import sys
 
 def Prediction(lsents,rsents,new_set,pretrained_dict,id):
     # =arg
@@ -116,6 +117,9 @@ def Prediction(lsents,rsents,new_set,pretrained_dict,id):
                            combine_mode, lm_mode, deep_CNN)#, corpus)
     if torch.cuda.is_available():
         model=model.cuda()
+    for name,parameters in model.named_parameters():
+        print(name,':',parameters.size())
+    sys.exit(0)
 
     criterion = nn.MultiMarginLoss(p=1, margin=1.0, weight=None, size_average=True)
     if torch.cuda.is_available():

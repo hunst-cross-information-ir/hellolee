@@ -22,7 +22,7 @@ def main(args):
 	#torch.manual_seed(123)
 	EMBEDDING_DIM = 200
 	HIDDEN_DIM = 250
-	num_epochs = 2
+	num_epochs = 10
 	task=args.task
 	granularity=args.granularity
 	dict={}
@@ -53,7 +53,8 @@ def main(args):
 		testset = readURLdata(basepath + '/data/url/test/', granularity)
 	elif task=='msrp':
 		num_class = 2
-		get_data=gs('../../data/parallel sentences/it-en/europarl-v7.it-en.en','../../data/parallel sentences/it-en/europarl-v7.it-en.it','english','italian')
+		# get_data=gs('../data/parallel sentences/it-en/europarl-v7.it-en.en','../data/parallel sentences/it-en/europarl-v7.it-en.it','english','italian')
+		get_data=gs('../data/parallel sentences/fr-en/europarl-v7.fr-en.en','../data/parallel sentences/fr-en/europarl-v7.fr-en.fr','english','french')
 		get_data.filter_sents()
 		get_data.sample_negative()
 		trainset=get_data.shuffle()
@@ -249,7 +250,7 @@ def main(args):
 			# wv_dict, wv_arr, wv_size = load_word_vectors(basepath + '/VDPWI-NN-Torch/data/glove', 'glove.twitter.27B', EMBEDDING_DIM)
 			# wv_dict, wv_arr, wv_size = load_word_vectors(expanduser("~")+'/Documents/research/pytorch/DeepPairWiseWord' + '/VDPWI-NN-Torch/data/glove', 'glove.840B',
 			#                                              EMBEDDING_DIM)
-			wv_dict, wv_arr, wv_size = ps.load_word_vecs('../../data/bilingual embeddings/fasttext.txt')
+			wv_dict, wv_arr, wv_size = ps.load_word_vecs('en_fr_fasttext.txt')
 			# wv_dict, wv_arr, wv_size = load_word_vectors(basepath + '/data/paragram/paragram_300_sl999/', 'paragram', EMBEDDING_DIM)
 			# wv_dict={}
 			# wv_arr={}
@@ -300,6 +301,7 @@ def main(args):
 	                       combine_mode, lm_mode, args.deep_CNN)#, corpus)
 	if torch.cuda.is_available():
 		model=model.cuda()
+	print('nihao')
 	lsents, rsents, labels = trainset
 	criterion = nn.MultiMarginLoss(p=1, margin=1.0, weight=None, size_average=True)
 	if torch.cuda.is_available():
@@ -311,7 +313,7 @@ def main(args):
 	print('start training')
 	max_result=-1
 	batch_size=32
-	report_interval=50000
+	report_interval=5000
 	for epoch in range(num_epochs):
 		print('--'*20)
 		model.train()
@@ -326,6 +328,8 @@ def main(args):
 			#start_time = time.time()
 			sentA = lsents[i]
 			sentB = rsents[i]
+			# print(sentA)
+			# print(sentB)
 			if task=='sick' or task=='sts' or task=='snli' or task=='wiki':
 				label=Variable(torch.Tensor(labels[i]))
 			else:
@@ -338,7 +342,7 @@ def main(args):
 			#print(extra_loss)
 			loss = criterion(output, label)+extra_loss
 			loss.backward()
-			data_loss += loss.data[0]
+			data_loss += loss.item()
 			output = np.exp(output.data[0].cpu().numpy())
 			if labels[i][0] == np.argmax(output):
 				train_correct += 1
@@ -353,7 +357,9 @@ def main(args):
 				msg += '\t train batch loss: %f' % (data_loss / (index+1))
 				train_acc=train_correct/(index+1)
 				print(msg)
-	torch.save(model.state_dict(),'model_static.pkl')
+		end=time.time()
+		print(end-start_time)
+	torch.save(model.state_dict(),'en_fr_negative_model_static.pkl')
 	# model.eval()
 	# en='This argument is irrational and lacks objectivity.'
 	# it='Tale argomentazione manca di razionalità e di obiettività.'
